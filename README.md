@@ -7,7 +7,7 @@ and train a Graph Neural Network(GNN) model to detect fraudulent transactions
 in the [IEEE-CIS Fraud detection dataset][ieee-fraud-detection]. 
 See the more detail in [blog post][blog].
 
-## Architecutre of solution
+## Architecture of solution
 
 This solution consists of below [stacks][cfn-stack],
 
@@ -30,7 +30,7 @@ It creates a React based web portal that observes the recent fraud transactions 
 
 After [deploying](#how-to-deploy-the-solution) this solution, go to AWS Step Functions in AWS console, then start the state machine starting with `ModelTrainingPipeline`.
 
-You can input below parameters to overrride the default parameters of model training,
+You can input below parameters to override the default parameters of model training,
 
 ```json
 {
@@ -100,7 +100,7 @@ aws ecr get-login-password --region cn-northwest-1 | docker login --username AWS
 ```
 
 #### Deploy it in a new VPC
-The deployment will create a new VPC acrossing two AZs at least and NAT gateways. Then the solution will be deployed into the newly created VPC.
+The deployment will create a new VPC across at least two AZs and NAT gateways. Then the solution will be deployed into the newly created VPC.
 ```shell
 yarn deploy
 ```
@@ -132,7 +132,7 @@ npx cdk deploy -c ServerlessInference=true -c ServerlessInferenceConcurrency=50 
 
 #### Deploy it with custom domain of dashboard
 
-If you want use custom domain to access the dashbaord of solution, you can use below options when deploying the solution. NOTE: you need already create a public hosted zone in Route 53, see [Solution prerequisites](#prerequisites) for detail.
+If you want use custom domain to access the dashboard of solution, you can use below options when deploying the solution. NOTE: you need already create a public hosted zone in Route 53, see [Solution prerequisites](#prerequisites) for detail.
 ```shell
 npx cdk deploy -c EnableDashboardCustomDomain=true --parameters DashboardDomain=<the custom domain> --parameters Route53HostedZoneId=<hosted zone id of your domain>
 ```
