@@ -12,7 +12,7 @@ from io import BytesIO, StringIO
 import boto3
 from urllib.parse import urlparse
 from neptune_python_utils.glue_gremlin_csv_transforms import GlueGremlinCsvTransforms
-import databricks.koalas as ks
+import pyspark.pandas as ks
 
 def join_all(dfs, keys):
     if len(dfs) > 1:

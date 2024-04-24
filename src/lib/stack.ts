@@ -9,6 +9,7 @@ import { Construct } from 'constructs';
 import { TransactionDashboardStack } from './dashboard-stack';
 import { InferenceStack } from './inference-stack';
 import { TrainingStack } from './training-stack';
+import { AnalyticsStack } from './analytics-stack';
 import * as pjson from '../../package.json';
 
 export class FraudDetectionStack extends Stack {
@@ -153,17 +154,17 @@ export class FraudDetectionStack extends Stack {
       r53HostZoneId: r53HostZoneId,
     });
 
+    const analyticsStack = new AnalyticsStack(this, 'analytics', {
+      vpc,
+      queue: tranQueue,
+    });
+
     this.templateOptions.metadata = {
       'AWS::CloudFormation::Interface': {
         ParameterGroups: interParameterGroups,
       },
     };
     this.templateOptions.description = `(SO9076) - Real-time Fraud Detection with Graph Neural Network on DGL. Template version ${pjson.version}`;
-
-    new CfnOutput(this, 'DashboardWebsiteUrl', {
-      value: customDomain ?? dashboardStack.distribution.distributionDomainName,
-      description: 'url of dashboard website',
-    });
   }
 
   private _createGraphDB_Neptune(vpc: IVpc, bucket: IBucket, dataPrefix: string, instanceType: string, replicaCount: number): {

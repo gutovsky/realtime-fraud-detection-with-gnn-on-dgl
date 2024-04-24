@@ -16,15 +16,15 @@ export class WranglerLayer extends LayerVersion {
       compatibleRuntimes: [Runtime.PYTHON_3_9],
       code: Code.fromAsset(path.join(__dirname, '../lambda.d/layer.d/awswrangler'), {
         bundling: {
-          image: new Runtime('busybox', RuntimeFamily.OTHER, {
-            bundlingDockerImage: 'public.ecr.aws/runecast/busybox:1.32.1',
+          image: new Runtime('alpine', RuntimeFamily.OTHER, {
+            bundlingDockerImage: 'public.ecr.aws/docker/library/alpine:3.18',
           }).bundlingImage,
           command: [
             'sh',
             '-c',
             `
                 mkdir -p /asset-output/ &&
-                wget -qO- ${wranglerLayerZip} | unzip - -d /asset-output
+                wget -qO- ${wranglerLayerZip} | unzip -d /asset-output -
                 `,
           ],
         },
@@ -42,8 +42,8 @@ export class NeptuneUtilLayer extends LayerVersion {
       compatibleRuntimes: [Runtime.PYTHON_3_9, Runtime.PYTHON_3_8, Runtime.PYTHON_3_7],
       code: Code.fromAsset(path.join(__dirname, '../script-libs/amazon-neptune-tools/neptune-python-utils/target'), {
         bundling: {
-          image: new Runtime('busybox', RuntimeFamily.OTHER, {
-            bundlingDockerImage: 'public.ecr.aws/runecast/busybox:1.32.1',
+          image: new Runtime('alpine', RuntimeFamily.OTHER, {
+            bundlingDockerImage: 'public.ecr.aws/docker/library/alpine:3.18',
           }).bundlingImage,
           command: [
             'sh',

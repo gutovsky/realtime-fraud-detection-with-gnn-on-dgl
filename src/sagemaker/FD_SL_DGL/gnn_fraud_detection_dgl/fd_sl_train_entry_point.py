@@ -212,7 +212,21 @@ if __name__ == '__main__':
                                                args.target_ntype,
                                                get_files(args.labels, args.training_dir),
                                                get_files(args.new_accounts, args.training_dir))
-    print("Got labels")
+    print('Got labels {}'.format(labels))
+    print("Data type before conversion:", labels.dtype)
+    if labels.dtype == np.object:
+        try:
+            labels = labels.astype(float)
+            print("Conversion successful.")
+        except ValueError:
+            print("Conversion failed: array may contain non-numeric values.")
+
+    # Convert to PyTorch tensor
+    if labels.dtype in [np.float64, np.float32, np.int]:
+        labels_tensor = th.from_numpy(labels).float()
+        print("Tensor conversion successful.")
+    else:
+        print("Tensor conversion failed: Check data types.")
 
     labels = th.from_numpy(labels).float()
     test_mask = th.from_numpy(test_mask).float()

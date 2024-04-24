@@ -60,6 +60,7 @@ class smBotoClient(object):
         self.endpointname = endpointname
         self.runtime = boto3.client('runtime.sagemaker')
         self.subgraph_dict, self.n_feats = load_subgraph(testgraphpath)
+        print(f'Going to invoke endpoint {endpointname}')
 
     def invoke_endpoint_with_idx(self, target_id=100, test_rounds=10):
 
@@ -84,7 +85,7 @@ class smBotoClient(object):
             print(pred_prob)
 
         e_t = dt.now()
-        print(f'Total test {test_rounds} rounds, using {(e_t - s_t).total_seconds()} seconds')
+        print(f'Total test {test_rounds} rounds')
 
 
 if __name__ == '__main__':

@@ -3,6 +3,7 @@ const { awscdk, typescript } = require('projen');
 const tsExcludeConfig = {
   compilerOptions: {
     lib: ['dom', 'es2018'],
+    noUnusedLocals: false,
   },
   exclude: [
     'cdk.out/**/*',
@@ -26,7 +27,7 @@ const awsSDKDeps = [
   '@aws-sdk/client-cloudformation',
 ].map(dep => `${dep}@^3.30.0`);
 const project = new awscdk.AwsCdkTypeScriptApp({
-  cdkVersion: '2.0.0',
+  cdkVersion: '2.136.1',
   name: 'realtime-fraud-detection-with-gnn-on-dgl',
   /* AwsCdkTypeScriptAppOptions */
   // appEntrypoint: 'main.ts',                                                 /* The CDK app's entrypoint (relative to the source directory, which is "src" by default). */
@@ -244,7 +245,7 @@ const reactPrj = new typescript.TypeScriptAppProject({
     '@testing-library/user-event@^13.1.9',
   ],
   devDeps: [
-    '@types/node@^14',
+    '@types/node@^16',
     '@types/react@^17.0.11',
     '@types/react-dom@^17.0.8',
     '@types/jest@^26.0.23',

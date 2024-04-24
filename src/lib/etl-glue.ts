@@ -246,11 +246,11 @@ export class ETLByGlue extends Construct {
         '--enable-continuous-log-filter': 'false',
         '--enable-metrics': '',
         '--extra-py-files': [glueJobBucket.s3UrlForObject(`${libPrefix}/${neptuneGlueConnectorLibName}`)].join(','),
-        '--additional-python-modules': 'koalas==1.8.1',
+        '--additional-python-modules': 'urllib3==1.26.15,requests==2.28.2,boto3>=1.26.153,botocore>=1.29.153',
       },
       role: glueJobRole.roleArn,
       maxCapacity: 8,
-      glueVersion: '2.0',
+      glueVersion: '4.0',
       connections: {
         connections: networkConntions.map(conn => conn.ref),
       },
